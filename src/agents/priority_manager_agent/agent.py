@@ -1,4 +1,3 @@
-from src.dto.start_network_dto import StartNetworkDto
 from src.agents.base_agent import BaseAgent
 from src.utils.logger import get_logger
 from src.types.priority_analysis_result import PriorityAnalysisResult
