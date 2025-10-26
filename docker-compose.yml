@@ -1,0 +1,22 @@
+services:
+  super-assistant:
+    container_name: super-assistant
+    build: 
+      context: .
+    ports:
+      - "53800:8000"
+    env_file:
+      - .env
+    environment:
+      - ENVIRONMENT=development
+    volumes:
+      - .:/app
+      - /app/__pycache__ 
+    command: uvicorn start_server:app --host 0.0.0.0 --port 8000 --reload
+    develop:
+      watch:
+        - action: sync
+          path: ./
+          target: /app
+        - action: rebuild
+          path: requirements.txt
