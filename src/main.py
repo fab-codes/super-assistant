@@ -1,4 +1,4 @@
-from src.dto.start_network_dto import StartNetworkDto
+from src.dto.api.requests.start_network_dto import StartNetworkDto
 from src.graph.compile_graph import compile_graph
 from src.utils.logger import get_logger
 
@@ -9,4 +9,6 @@ async def start_network(data: StartNetworkDto):
 
     result = await app.ainvoke(data)
 
-    return result
+    logger.info(result)
+    # TODO: Gestire ritorno
+    return "Worked"

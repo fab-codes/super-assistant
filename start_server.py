@@ -1,9 +1,8 @@
 from src.main import start_network
 from src.config.settings import AppConfig
 from fastapi import FastAPI, HTTPException, Header
-from datetime import datetime
 
-from src.dto.start_network_dto import StartNetworkDto
+from src.dto.api.requests.start_network_dto import StartNetworkDto
 
 app = FastAPI(
     title="Super Assistant API",

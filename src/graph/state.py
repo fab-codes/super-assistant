@@ -1,8 +1,8 @@
 import datetime
 from typing import List, TypedDict
-from src.types.task import Task
-from src.types.calendar_event import CalendarEvent
-from src.types.priority_analysis_result import PriorityAnalysisResult
+from src.agents.priority_manager_agent.types.priority_analysis_result import PriorityAnalysisResult
+from src.shared.types.calendar_event import CalendarEvent
+from src.shared.types.task import Task
 
 class State(TypedDict):
     current_time: datetime
