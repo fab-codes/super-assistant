@@ -1,6 +1,7 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
 from src.config.settings import GeminiConfig
 from src.utils.logger import get_logger
+from src.agents.priority_manager_agent.agent import PriorityManagerAgent
 
 logger = get_logger(__name__)
 
@@ -28,7 +29,7 @@ class AgentManager:
         """Init all agents"""
         try:
             self.agents = {
-                # Add here future agents
+                "priority_manager": PriorityManagerAgent(self.llm)
             }
             logger.info(f"✅ Initialized {len(self.agents)} agents")
         except Exception as e:

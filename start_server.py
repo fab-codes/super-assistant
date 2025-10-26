@@ -1,3 +1,4 @@
+from src.main import start_network
 from src.config.settings import AppConfig
 from fastapi import FastAPI, HTTPException, Header
 from datetime import datetime
@@ -19,14 +20,7 @@ async def start_network_work(request: StartNetworkDto, x_api_key: str = Header(N
         )
     
     try:
-        tasks_data = request.tasks_to_do
-        calendar_data = request.calendar_events
-
-        return {
-            "status": "success",
-            "message": f"Processed {len(tasks_data)} tasks and {len(calendar_data)} events",
-            "timestamp": datetime.now().isoformat()
-        }
+       return await start_network(request)
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing request: {str(e)}")
