@@ -1,4 +1,5 @@
-from fastapi import FastAPI, HTTPException
+from src.config.settings import AppConfig
+from fastapi import FastAPI, HTTPException, Header
 from datetime import datetime
 
 from src.dto.start_network_dto import StartNetworkDto
@@ -9,16 +10,14 @@ app = FastAPI(
     version="1.0.0"
 )
 
-@app.get("/")
-async def root():
-    return {
-        "message": app.title,
-        "status": "running",
-        "version": app.version
-    }
-
 @app.post("/start_network")
-async def start_network_work(request: StartNetworkDto):
+async def start_network_work(request: StartNetworkDto, x_api_key: str = Header(None, alias="X-API-Key")):
+    if x_api_key != AppConfig.API_KEY:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid API Key"
+        )
+    
     try:
         tasks_data = request.tasks_to_do
         calendar_data = request.calendar_events
