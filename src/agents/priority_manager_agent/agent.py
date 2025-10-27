@@ -1,6 +1,6 @@
 from src.agents.base_agent import BaseAgent
+from src.agents.priority_manager_agent.types.priority_analysis_result import PriorityAnalysisResult
 from src.utils.logger import get_logger
-from src.types.priority_analysis_result import PriorityAnalysisResult
 
 logger = get_logger(__name__)
 
