@@ -9,6 +9,4 @@ async def start_network(data: StartNetworkDto):
 
     result = await app.ainvoke(data)
 
-    logger.info(result)
-    # TODO: Gestire ritorno
-    return "Worked"
+    return result

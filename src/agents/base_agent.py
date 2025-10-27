@@ -14,12 +14,12 @@ class BaseAgent(ABC):
         logger.info(f"🤖 Initialized {agent_name}")
     
     @abstractmethod
-    async def process(self, data: Dict[str, Any]) -> Dict[str, Any]:
+    async def process(self, data: Any) -> Dict[str, Any]:
         """Main processing method to be implemented by all agents"""
         pass
     
-    def _validate_input(self, data: Dict[str, Any], required_fields: List[str]):
-        """Validate input data against required fields"""
-        missing = [field for field in required_fields if field not in data]
-        if missing:
-            raise ValueError(f"Missing required fields: {missing}")
+    # def _validate_input(self, data: Dict[str, Any], required_fields: List[str]):
+    #     """Validate input data against required fields"""
+    #     missing = [field for field in required_fields if field not in data]
+    #     if missing:
+    #         raise ValueError(f"Missing required fields: {missing}")
