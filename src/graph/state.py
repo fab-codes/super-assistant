@@ -10,3 +10,5 @@ class State(TypedDict):
     tasks_to_do: List[Task]
     calendar_events: List[CalendarEvent]
     priority_analysis_result: PriorityAnalysisResult
+
+    daily_plan: str
