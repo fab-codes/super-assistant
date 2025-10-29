@@ -4,9 +4,9 @@ from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
 
-class DayPlannerAgent(BaseAgent):
+class DailyPlannerAgent(BaseAgent):
     def __init__(self, llm):
-        super().__init__(llm, "DayPlannerAgent")
+        super().__init__(llm, "DailyPlannerAgent")
 
     async def process(self, data: State):
         prompt = f"""
@@ -28,7 +28,7 @@ class DayPlannerAgent(BaseAgent):
             - Oggi è {data.get("current_time")}
             - Considera orari realistici (laboratori, uffici, etc.)
             - Inserisci pause tra attività
-            - Prevedi tempo per spostamenti
+            - Prevedi eventuale tempi per spostamenti
 
             Fornisci un piano orario dettagliato che eviti conflitti con gli eventi esistenti.
             Include orari specifici, durata stimata, e istruzioni pratiche.

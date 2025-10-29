@@ -4,8 +4,8 @@ from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
 
-async def day_planner_node(state: State) -> State:
-    agent = agent_manager.get_agent('day_planner')
+async def daily_planner_node(state: State) -> State:
+    agent = agent_manager.get_agent('daily_planner')
 
     result = await agent.process(state)
 
