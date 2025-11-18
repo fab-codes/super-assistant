@@ -1,3 +1,4 @@
+from src.core.rag.retriever.preferences_retriever import PreferencesRetriever
 from src.agents.base_agent import BaseAgent
 from src.graph.state import State
 from src.utils.logger import get_logger
@@ -7,22 +8,25 @@ logger = get_logger(__name__)
 class DailyPlannerAgent(BaseAgent):
     def __init__(self, llm):
         super().__init__(llm, "DailyPlannerAgent")
+        self.preferences_retriever = PreferencesRetriever()
 
     async def process(self, data: State):
+        priority_analysis_result = data.get("priority_analysis_result")
+
         prompt = f"""
             Crea un piano dettagliato per domani basandoti su:
 
             TASK PRIORITIZZATI:
-            {data.get("prioritized_tasks", [])}
-
+            {priority_analysis_result["prioritized_tasks"]}
+            
             EVENTI GIÀ IN CALENDARIO:
             {data.get("calendar_events", [])}
-
+            
             RACCOMANDAZIONI DELL'ANALISI:
-            {data.get("recommendations", "")}
-
+            {priority_analysis_result["recommendations"]}
+            
             SLOT DISPONIBILI SUGGERITI:
-            {data.get("available_slots", [])}
+            {priority_analysis_result["available_slots"]}
 
             CONTESTO:
             - Oggi è {data.get("current_time")}

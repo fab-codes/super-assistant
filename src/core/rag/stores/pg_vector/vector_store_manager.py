@@ -1,5 +1,5 @@
 from typing import List, Optional
-from core.rag.stores.base_vector_store import BaseVectorStore
+from src.core.rag.stores.base_vector_store import BaseVectorStore
 from sqlalchemy import make_url
 from llama_index.core import VectorStoreIndex, Document, StorageContext
 from llama_index.vector_stores.postgres import PGVectorStore

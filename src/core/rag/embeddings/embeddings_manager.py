@@ -25,9 +25,9 @@ class EmbeddingsManager:
 
         return embed_model
 
-    @staticmethod
-    def setup_custom(embed_model) -> None:
-        Settings.embed_model = embed_model
-        Settings.llm = None
+    # @staticmethod
+    # def setup_custom(embed_model) -> None:
+    #     Settings.embed_model = embed_model
+    #     Settings.llm = None
 
-        logger.info(f"🔧 Custom embeddings configured: {type(embed_model).__name__}")
+    #     logger.info(f"🔧 Custom embeddings configured: {type(embed_model).__name__}")
