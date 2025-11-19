@@ -1,3 +1,4 @@
+from src.core.rag.retriever.preferences_retriever import PreferencesRetriever
 from src.agents.daily_planner_agent.types.daily_planner_agent_data import DailyPlannerAgentData
 from src.agents.base_agent import BaseAgent
 from src.utils.logger import get_logger
@@ -7,7 +8,7 @@ logger = get_logger(__name__)
 class DailyPlannerAgent(BaseAgent):
     def __init__(self, llm):
         super().__init__(llm, "DailyPlannerAgent")
-        # self.preferences_retriever = PreferencesRetriever()
+        self.preferences_retriever = PreferencesRetriever()
 
     async def process(self, data: DailyPlannerAgentData):
         priority_analysis_result = data.get("priority_analysis_result")

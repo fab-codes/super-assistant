@@ -1,9 +1,9 @@
 import asyncio
 from typing import List
 
+from src.core.rag.stores.vector.pgvector.pgvector_store_manager import PgVectorStoreManager
 from src.core.rag.embeddings.embeddings_manager import EmbeddingsManager
 from src.core.rag.loaders.notion_loader.notion_loader import NotionLoader
-from src.core.rag.stores.pg_vector.vector_store_manager import VectorStoreManager
 from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -17,7 +17,7 @@ class PreferencesRag:
         # Setup embeddings
         EmbeddingsManager.setup_cohere()
 
-        self.vector_store_manager = VectorStoreManager(connection_string)
+        self.vector_store_manager = PgVectorStoreManager(connection_string)
         self.loader = NotionLoader()
 
         # self.index = self.vector_store_manager.get_index()

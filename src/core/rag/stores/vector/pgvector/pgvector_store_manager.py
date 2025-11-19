@@ -1,22 +1,22 @@
 from typing import List, Optional
-from src.core.rag.stores.base_vector_store import BaseVectorStore
+from src.core.rag.stores.vector.base_vector_store import BaseVectorStore
 from sqlalchemy import make_url
 from llama_index.core import VectorStoreIndex, Document, StorageContext
 from llama_index.vector_stores.postgres import PGVectorStore
 
-from src.core.rag.stores.pg_vector.config import VectorStoreConfig
+from src.core.rag.stores.vector.pgvector.config import VectorStoreConfig
 from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
 
-class VectorStoreManager(BaseVectorStore):
+class PgVectorStoreManager(BaseVectorStore):
     """Manages LlamaIndex PGVectorStore operations"""
     
     def __init__(self, connection_string: str):
         """
         Initialize vector store manager
         """
-        logger.info("🔧 Initializing VectorStoreManager...")
+        logger.info("🔧 Initializing PgVectorStoreManager...")
         
         # Parse connection string
         db_url = make_url(connection_string)
@@ -40,7 +40,7 @@ class VectorStoreManager(BaseVectorStore):
         
         self._index: Optional[VectorStoreIndex] = None
         
-        logger.info("✅ VectorStoreManager initialized")
+        logger.info("✅ PgVectorStoreManager initialized")
     
     def create_index(self, documents: List[Document]) -> VectorStoreIndex:
         """
