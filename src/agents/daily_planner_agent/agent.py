@@ -21,12 +21,6 @@ class DailyPlannerAgent(BaseAgent):
             
             EVENTI GIÀ IN CALENDARIO:
             {data.get("calendar_events", [])}
-            
-            RACCOMANDAZIONI DELL'ANALISI:
-            {priority_analysis_result["recommendations"]}
-            
-            SLOT DISPONIBILI SUGGERITI:
-            {priority_analysis_result["available_slots"]}
 
             CONTESTO:
             - Oggi è {data.get("current_time")}

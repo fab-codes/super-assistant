@@ -29,7 +29,6 @@ class PriorityManagerAgent(BaseAgent):
             - Dipendenze tra task
 
             Assegna un priority_score da 1-10 e fornisci reasoning dettagliato per ogni task.
-            Suggerisci slot disponibili e strategia generale di organizzazione.
             Questa è la data di oggi: {data["current_time"]}
         """
 
