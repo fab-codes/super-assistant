@@ -77,3 +77,7 @@ class PgVectorStoreManager(BaseVectorStore):
             logger.info("✅ Index loaded")
         
         return self._index
+
+    def reset_index(self) -> None:
+        """Reset the cached index"""
+        self._index = None

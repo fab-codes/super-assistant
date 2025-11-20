@@ -1,7 +1,6 @@
 import asyncio
 from typing import List
-
-from src.core.rag.stores.vector.pgvector.pgvector_store_manager import PgVectorStoreManager
+from src.core.rag.stores.store_manager import StoreManager
 from src.core.rag.embeddings.embeddings_manager import EmbeddingsManager
 from src.core.rag.loaders.notion_loader.notion_loader import NotionLoader
 from src.utils.logger import get_logger
@@ -17,11 +16,33 @@ class PreferencesRag:
         # Setup embeddings
         EmbeddingsManager.setup_cohere()
 
-        self.vector_store_manager = PgVectorStoreManager(connection_string)
-        self.loader = NotionLoader()
+        self.notion_loader = NotionLoader()
+        self.store_manager = StoreManager(connection_string)
 
-        # self.index = self.vector_store_manager.get_index()
-        self.index = self.vector_store_manager.create_index(self.loader.load())
+        if self.store_manager.should_refresh():
+            logger.info("📥 Refreshing data from Notion...")
+            self._refresh()
+
+        # Load index
+        self.index = self.store_manager.get_index()
+
+        logger.info("✅ PreferencesRAG ready!")
+
+    def _refresh(self) -> None:
+        """Refresh data from Notion (sync helper)"""
+        try:
+            documents = self.notion_loader.load()
+
+            if not documents:
+                logger.warning("⚠️ No documents loaded from Notion")
+                return
+
+            self.store_manager.create_index(documents)
+            logger.info(f"✅ Refreshed with {len(documents)} documents")
+
+        except Exception as e:
+            logger.error(f"❌ Error refreshing from Notion: {e}")
+            raise
 
     async def search(self, query: str) -> List[str]:
         """
