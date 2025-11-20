@@ -11,11 +11,10 @@ class NotionLoader(BaseLoader):
     """Load documents from Notion pages and databases"""
 
     def __init__(self):
-        self.integration_token = NotionConfig.INTEGRATION_TOKEN
         self.page_ids = NotionConfig.PAGES
         self.database_ids = NotionConfig.DATABASES
 
-        self.reader = NotionPageReader(integration_token=self.integration_token)
+        self.reader = NotionPageReader(integration_token=NotionConfig.INTEGRATION_TOKEN)
         
         logger.info(
             f"NotionLoader initialized with {len(self.page_ids)} pages "
@@ -32,7 +31,7 @@ class NotionLoader(BaseLoader):
         all_documents.extend(self._load_pages())
         
         # Load databases
-        all_documents.extend(self._load_databases())
+        # all_documents.extend(self._load_databases())
         
         logger.info(f"✅ Loaded {len(all_documents)} total documents from Notion")
         
@@ -62,26 +61,26 @@ class NotionLoader(BaseLoader):
         
         return documents
     
-    def _load_databases(self) -> List[Document]:
-        """Load documents from Notion databases"""
-        documents = []
+    # def _load_databases(self) -> List[Document]:
+    #     """Load documents from Notion databases"""
+    #     documents = []
         
-        for db_id in self.database_ids:
-            try:
-                docs = self.reader.load_data(database_ids=[db_id])
+    #     for db_id in self.database_ids:
+    #         try:
+    #             docs = self.reader.load_data(database_ids=[db_id])
                 
-                # Add metadata
-                for doc in docs:
-                    doc.metadata.update({
-                        "source": "notion",
-                        "source_type": "database",
-                        "database_id": db_id
-                    })
+    #             # Add metadata
+    #             for doc in docs:
+    #                 doc.metadata.update({
+    #                     "source": "notion",
+    #                     "source_type": "database",
+    #                     "database_id": db_id
+    #                 })
                 
-                documents.extend(docs)
-                logger.info(f"🗄️  Loaded {len(docs)} docs from database {db_id}")
+    #             documents.extend(docs)
+    #             logger.info(f"🗄️  Loaded {len(docs)} docs from database {db_id}")
                 
-            except Exception as e:
-                logger.error(f"❌ Error loading database {db_id}: {e}")
+    #         except Exception as e:
+    #             logger.error(f"❌ Error loading database {db_id}: {e}")
         
-        return documents
+    #     return documents

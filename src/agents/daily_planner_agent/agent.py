@@ -11,6 +11,8 @@ class DailyPlannerAgent(BaseAgent):
         self.preferences_retriever = PreferencesRetriever()
 
     async def process(self, data: DailyPlannerAgentData):
+        relevant_preferences = await self.preferences_retriever.retrieve_for_planning()
+
         priority_analysis_result = data.get("priority_analysis_result")
 
         prompt = f"""
@@ -22,11 +24,19 @@ class DailyPlannerAgent(BaseAgent):
             EVENTI GIÀ IN CALENDARIO:
             {data.get("calendar_events", [])}
 
+            PREFERENZE E INTERESSI PERSONALI:
+            {relevant_preferences}
+
             CONTESTO:
             - Oggi è {data.get("current_time")}
             - Considera orari realistici (laboratori, uffici, etc.)
             - Inserisci pause tra attività
             - Prevedi eventuale tempi per spostamenti
+
+            Integra le preferenze personali nel piano rispettando:
+            - Gli orari preferiti per ogni attività
+            - La frequenza settimanale desiderata
+            - I vincoli specifici menzionati
 
             Fornisci un piano orario dettagliato che eviti conflitti con gli eventi esistenti.
             Include orari specifici, durata stimata, e istruzioni pratiche.

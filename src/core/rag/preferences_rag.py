@@ -1,5 +1,6 @@
 import asyncio
 from typing import List
+from src.config.settings import VectorDbConfig
 from src.core.rag.stores.store_manager import StoreManager
 from src.core.rag.embeddings.embeddings_manager import EmbeddingsManager
 from src.core.rag.loaders.notion_loader.notion_loader import NotionLoader
@@ -8,16 +9,16 @@ from src.utils.logger import get_logger
 logger = get_logger(__name__)
 
 class PreferencesRag:
-    def __init__(self, connection_string: str, similarity_top_k: int):
+    def __init__(self):
         logger.info("🚀 Initializing PreferencesRAG...")
 
-        self.similarity_top_k = similarity_top_k
+        self.similarity_top_k = 5
 
         # Setup embeddings
         EmbeddingsManager.setup_cohere()
 
         self.notion_loader = NotionLoader()
-        self.store_manager = StoreManager(connection_string)
+        self.store_manager = StoreManager(VectorDbConfig.VECTOR_DB_CONNECTION_STRING)
 
         if self.store_manager.should_refresh():
             logger.info("📥 Refreshing data from Notion...")

@@ -14,6 +14,7 @@ class NotionConfig:
     PAGES: List[str] = [
         os.getenv("NOTION_VIDEOGAMES_NOTES_PAGE", ""),
         os.getenv("NOTION_SPORT_PAGE", ""),
+        os.getenv("NOTION_STUDY_PAGE", ""),
     ]
 
     # Database IDs (for structured data)
