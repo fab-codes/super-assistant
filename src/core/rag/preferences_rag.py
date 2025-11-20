@@ -45,7 +45,7 @@ class PreferencesRag:
             logger.error(f"❌ Error refreshing from Notion: {e}")
             raise
 
-    async def search(self, query: str) -> List[str]:
+    def search(self, query: str) -> List[str]:
         """
         Search for relevant preferences
         """
@@ -54,20 +54,9 @@ class PreferencesRag:
         retriever = self.index.as_retriever(similarity_top_k=self.similarity_top_k)
 
         # Execute async retrieval
-        nodes = await retriever.aretrieve(query)
+        nodes = retriever.retrieve(query)
 
         results = [node.text for node in nodes]
         logger.info(f"🔍 Query: '{query}' (top_k={self.similarity_top_k}) → {len(results)} results")
-
-        return results
-
-    async def multiple_search(self, queries: List[str]) -> List[List[str]]:
-        """
-        Execute multiple searches in parallel
-        """
-        tasks = [self.search(query) for query in queries]
-        results = await asyncio.gather(*tasks)
-        
-        logger.info(f"🔍 Executed {len(queries)} parallel searches")
 
         return results
