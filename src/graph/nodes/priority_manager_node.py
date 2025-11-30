@@ -1,4 +1,4 @@
-from src.agents.priority_manager_agent.types.input_agent_data import InputAgentData
+from src.agents.priority_manager_agent.types.priority_manager_agent_data import PriorityManagerAgentData
 from src.core.agent_manager import agent_manager
 from src.graph.state import State
 from src.utils.logger import get_logger
@@ -8,7 +8,7 @@ logger = get_logger(__name__)
 async def priority_manager_node(state: State) -> State:
     agent = agent_manager.get_agent('priority_manager')
     
-    agent_data: InputAgentData = {
+    agent_data: PriorityManagerAgentData = {
         "tasks_to_do": state["tasks_to_do"],
         "calendar_events": state["calendar_events"],
         "current_time": state["current_time"]
