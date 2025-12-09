@@ -2,19 +2,6 @@
 
 An intelligent multi-agent system for automatic daily task planning and prioritization, with Notion integration and retrieval augmented generation (RAG).
 
-## 📋 Table of Contents
-
-- [Overview](#-overview)
-- [Features](#-features)
-- [Architecture](#-architecture)
-- [Requirements](#-requirements)
-- [Installation](#-installation)
-- [Configuration](#-configuration)
-- [Usage](#-usage)
-- [API](#-api)
-- [Project Structure](#-project-structure)
-- [Technologies Used](#-technologies-used)
-
 ## 🎯 Overview
 
 Super Assistant is an AI-based system that analyzes your tasks, calendar events, and personal preferences to create an optimized daily plan. It uses a multi-agent approach orchestrated through LangGraph and integrates your personal preferences from Notion through a RAG system with vector embeddings.
